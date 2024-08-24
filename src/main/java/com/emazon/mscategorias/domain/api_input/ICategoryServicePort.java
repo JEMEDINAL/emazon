@@ -9,9 +9,7 @@ public interface ICategoryServicePort {
 
     List<Category> getAllCategories();
 
-    Category getCategory(Long idCategory);
+    List<Category> getParameterizedCategories(int page, int size,String orden);
 
-    void updateCategory(Category category);
 
-    void deleteCategory(Long idCategory);
 }

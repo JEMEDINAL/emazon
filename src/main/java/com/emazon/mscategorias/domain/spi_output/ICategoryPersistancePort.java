@@ -9,6 +9,8 @@ public interface ICategoryPersistancePort {
 
     List<Category> getAllCategories();
 
+    List<Category> getParameterizedCategories(int page, int size, String orden);
+
     Category getCategory(Long idCategory);
 
     void updateCategory(Category category);
