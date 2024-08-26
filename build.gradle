@@ -28,7 +28,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
-
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.12.0'
 }
 
 tasks.named('test') {
