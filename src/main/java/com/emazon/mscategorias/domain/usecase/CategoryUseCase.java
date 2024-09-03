@@ -10,6 +10,7 @@ import com.emazon.mscategorias.infrastructure.exception.UnauthorizedUserExceptio
 import com.emazon.mscategorias.infrastructure.exception.ValidCategoryDescription;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -32,6 +33,11 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     }
 
+    @Override
+    public List<Category> getAllCategories() {
+        return List.of();
+    }
+
     private  void validAdminUser(String rol){
         if(!rol.equals("ADMIN")){
             throw new UnauthorizedUserException();
@@ -39,7 +45,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     private void validCategoryName(String name){
-        if(name == null || name.trim().isEmpty() || name.length() > 50){
+        if(name == null || name.trim().isEmpty() || name.length() >= 50){
             throw new NameCategoryNotBlankException();
         }
     }
@@ -51,23 +57,12 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
 
-    @Override
-    public List<Category> getAllCategories() {
-        return categoryPersistancePort.getAllCategories();
-    }
 
     @Override
-    public Category getCategory(Long idCategory) {
-        return categoryPersistancePort.getCategory(idCategory);
+    public List<Category> getParameterizedCategories(int page, int size,String orden) {
+        return categoryPersistancePort.getParameterizedCategories(page, size, orden);
     }
 
-    @Override
-    public void updateCategory(Category category) {
-        categoryPersistancePort.updateCategory(category);
-    }
 
-    @Override
-    public void deleteCategory(Long idCategory) {
-        categoryPersistancePort.deleteCategory(idCategory);
-    }
+
 }
