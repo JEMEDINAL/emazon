@@ -1,18 +1,14 @@
 package com.emazon.mscategorias.domain.api_input;
 
-import com.emazon.mscategorias.domain.model.Category;
+
 import com.emazon.mscategorias.domain.model.Brand;
 
 import java.util.List;
 
 public interface IBrandServicePort {
-    Brand saveBrand(Brand brand);
 
-    List<Brand> getAllBrand();
+    void saveBrand(Brand brand);
 
-    Brand getBrand(Long idBrand);
+    List<Brand> getParameterizedBrands(int page,int size,String orden);
 
-    void updateBrand(Brand brand);
-
-    void deleteBrand(Long idBrand);
 }

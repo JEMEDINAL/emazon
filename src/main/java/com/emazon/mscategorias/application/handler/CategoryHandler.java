@@ -6,6 +6,7 @@ import com.emazon.mscategorias.application.mapper.CategoryRequestMapper;
 import com.emazon.mscategorias.domain.api_input.ICategoryServicePort;
 import com.emazon.mscategorias.domain.model.Category;
 
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,14 +29,14 @@ public class CategoryHandler implements ICategoryHandler{
         iCategoryServicePort.saveCategory(category);
     }
 
-    @Override
-    public List<CategoryResponseDto> getAllCategories() {
-        return List.of();
-    }
 
     @Override
-    public List<CategoryResponseDto> getParameterizedCategories(int page, int size, String orden) {
-        return categoryRequestMapper.toResponseList(iCategoryServicePort.getParameterizedCategories(page,size,orden));
+    public CustomPageResponse<CategoryResponseDto> getParameterizedCategories(int page, int size, String orden) {
+        CustomPageResponse<Category> pageCustom = iCategoryServicePort.getParameterizedCategories(page, size, orden);
+        List<CategoryResponseDto> responseDtos = categoryRequestMapper.toResponseList(pageCustom.getContent());
+        return new CustomPageResponse<>(responseDtos,pageCustom.getPage(),
+        pageCustom.getSize(),pageCustom.getTotalElements(),pageCustom.getTotalPages(),pageCustom.getOrden());
+
     }
 
 }
