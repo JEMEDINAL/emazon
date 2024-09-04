@@ -6,13 +6,10 @@ import com.emazon.mscategorias.domain.model.Category;
 import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.ICategoryPersistancePort;
 
-import com.emazon.mscategorias.infrastructure.exception.NameCategoryNotBlankException;
+import com.emazon.mscategorias.infrastructure.exception.NameNotBlankException;
 import com.emazon.mscategorias.infrastructure.exception.UnauthorizedUserException;
-import com.emazon.mscategorias.infrastructure.exception.ValidCategoryDescription;
+import com.emazon.mscategorias.infrastructure.exception.ValidDescription;
 import org.springframework.stereotype.Service;
-
-
-import java.util.List;
 
 @Service
 public class CategoryUseCase implements ICategoryServicePort {
@@ -29,11 +26,11 @@ public class CategoryUseCase implements ICategoryServicePort {
         validAdminUser(userRol);
 
         if(category.getName() == null || category.getName().trim().isEmpty() || category.getName().length() >= 50){
-            throw new NameCategoryNotBlankException();
+            throw new NameNotBlankException();
         }
 
         if(category.getDescription() == null ||  category.getDescription().trim().isEmpty() || category.getDescription().length() > 90){
-            throw new ValidCategoryDescription();
+            throw new ValidDescription();
         }
 
         categoryPersistancePort.saveCategory(category);

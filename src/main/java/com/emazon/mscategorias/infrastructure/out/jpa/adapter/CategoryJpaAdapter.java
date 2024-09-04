@@ -3,7 +3,7 @@ package com.emazon.mscategorias.infrastructure.out.jpa.adapter;
 import com.emazon.mscategorias.domain.model.Category;
 import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.ICategoryPersistancePort;
-import com.emazon.mscategorias.infrastructure.exception.CategoryAlreadyExistsException;
+import com.emazon.mscategorias.infrastructure.exception.AlreadyExistsException;
 import com.emazon.mscategorias.infrastructure.out.jpa.entity.CategoryEntiy;
 import com.emazon.mscategorias.infrastructure.out.jpa.mapper.CategoryEntityMapper;
 import com.emazon.mscategorias.infrastructure.out.jpa.repository.ICategoryRepository;
@@ -25,7 +25,7 @@ public class CategoryJpaAdapter  implements ICategoryPersistancePort {
     public void saveCategory(Category category) {
 
         if(categoryRepository.findByName(category.getName()).isPresent()){
-            throw new CategoryAlreadyExistsException();
+            throw new AlreadyExistsException();
         }
         CategoryEntiy categoryEntiy = categoryEntityMapper.toEntity(category);
 
