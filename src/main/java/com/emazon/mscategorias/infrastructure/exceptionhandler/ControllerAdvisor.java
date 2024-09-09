@@ -1,9 +1,6 @@
 package com.emazon.mscategorias.infrastructure.exceptionhandler;
 
-import com.emazon.mscategorias.infrastructure.exception.AlreadyExistsException;
-import com.emazon.mscategorias.infrastructure.exception.NameNotBlankException;
-import com.emazon.mscategorias.infrastructure.exception.UnauthorizedUserException;
-import com.emazon.mscategorias.infrastructure.exception.ValidDescription;
+import com.emazon.mscategorias.infrastructure.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -40,5 +37,17 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String,String>> validCategoryDescription(ValidDescription validDescription){
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE,ExeptionResponse.VALID_CATEGORY_DESCRIPTION.getMessage()));
+    }
+
+    @ExceptionHandler(ValidPageParameter.class)
+    public ResponseEntity<Map<String,String>> validPageParameter(ValidPageParameter validPageParameter){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.VALID_PAGE_PARAMETER.getMessage()));
+    }
+
+    @ExceptionHandler(NoDataFoundException.class)
+    public ResponseEntity<Map<String,String>> noDataFoundException(NoDataFoundException noDataFoundException){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.NO_DATA_FOUND_EXCEPTION.getMessage()));
     }
 }

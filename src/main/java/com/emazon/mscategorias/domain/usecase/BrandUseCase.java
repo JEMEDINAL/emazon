@@ -2,13 +2,14 @@ package com.emazon.mscategorias.domain.usecase;
 
 import com.emazon.mscategorias.domain.api_input.IBrandServicePort;
 import com.emazon.mscategorias.domain.model.Brand;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.IBrandPersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.NameNotBlankException;
 import com.emazon.mscategorias.infrastructure.exception.UnauthorizedUserException;
 import com.emazon.mscategorias.infrastructure.exception.ValidDescription;
+import com.emazon.mscategorias.infrastructure.exception.ValidPageParameter;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class BrandUseCase implements IBrandServicePort {
@@ -41,7 +42,12 @@ public class BrandUseCase implements IBrandServicePort {
     }
 
     @Override
-    public List<Brand> getParameterizedBrands(int page, int size, String orden) {
-        return List.of();
+    public CustomPageResponse<Brand> getParameterizedBrands(Integer page, Integer size, String orden) {
+
+        if(page == null || size == null||size < 1 || orden == null ){
+            throw new ValidPageParameter();
+        }
+
+        return iBrandPersistancePort.getParameterizedBrands(page, size, orden);
     }
 }
