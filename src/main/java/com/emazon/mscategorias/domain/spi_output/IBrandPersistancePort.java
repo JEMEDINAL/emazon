@@ -2,16 +2,12 @@ package com.emazon.mscategorias.domain.spi_output;
 
 import com.emazon.mscategorias.domain.model.Brand;
 
-import java.util.List;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
+
 
 public interface IBrandPersistancePort {
     void saveBrand(Brand brand);
 
-    List<Brand> getAllBrand();
+    CustomPageResponse<Brand> getParameterizedBrands(Integer page, Integer size, String orden);
 
-    Brand getBrand(Long idBrand);
-
-    void updateBrand(Brand brand);
-
-    void deleteBrand(Long idBrand);
 }
