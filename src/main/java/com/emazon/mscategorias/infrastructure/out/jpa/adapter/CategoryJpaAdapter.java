@@ -4,6 +4,7 @@ import com.emazon.mscategorias.domain.model.Category;
 import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.ICategoryPersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.CategoryAlreadyExistsException;
+import com.emazon.mscategorias.infrastructure.exception.NoDataFoundException;
 import com.emazon.mscategorias.infrastructure.out.jpa.entity.CategoryEntiy;
 import com.emazon.mscategorias.infrastructure.out.jpa.mapper.CategoryEntityMapper;
 import com.emazon.mscategorias.infrastructure.out.jpa.repository.ICategoryRepository;
@@ -36,7 +37,7 @@ public class CategoryJpaAdapter  implements ICategoryPersistancePort {
 
 
     @Override
-    public CustomPageResponse<Category> getParameterizedCategories(int page, int size, String orden) {
+    public CustomPageResponse<Category> getParameterizedCategories(Integer page, Integer size, String orden) {
 
 
         Sort sort = Sort.by(Sort.Direction.fromString(orden),"name");
@@ -44,6 +45,9 @@ public class CategoryJpaAdapter  implements ICategoryPersistancePort {
         Pageable pageable = PageRequest.of(page,size,sort);
 
         Page<CategoryEntiy> categoryEntiyPage = categoryRepository.findAll(pageable);
+        if(categoryEntiyPage.getTotalElements() == 0){
+            throw new NoDataFoundException();
+        }
         List<Category> categoryList = categoryEntityMapper.toListCategory(categoryEntiyPage.getContent());
 
 

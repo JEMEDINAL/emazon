@@ -31,9 +31,9 @@ public class CategoryController {
 
     @GetMapping
     public  ResponseEntity<CustomPageResponse<CategoryResponseDto>> getParameterizedCategories(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "asc") String orden
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String orden
     ){
         CustomPageResponse<CategoryResponseDto> response = iCategoryHandler.getParameterizedCategories(page, size, orden);
         return ResponseEntity.ok(response);

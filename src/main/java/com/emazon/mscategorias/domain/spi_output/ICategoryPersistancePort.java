@@ -10,7 +10,7 @@ public interface ICategoryPersistancePort {
 
 
 
-    CustomPageResponse<Category> getParameterizedCategories(int page, int size, String orden);
+    CustomPageResponse<Category> getParameterizedCategories(Integer page, Integer size, String orden);
 
 
 }

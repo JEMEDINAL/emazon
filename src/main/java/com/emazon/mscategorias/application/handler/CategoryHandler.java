@@ -31,7 +31,7 @@ public class CategoryHandler implements ICategoryHandler{
 
 
     @Override
-    public CustomPageResponse<CategoryResponseDto> getParameterizedCategories(int page, int size, String orden) {
+    public CustomPageResponse<CategoryResponseDto> getParameterizedCategories(Integer page, Integer size, String orden) {
         CustomPageResponse<Category> pageCustom = iCategoryServicePort.getParameterizedCategories(page, size, orden);
         List<CategoryResponseDto> responseDtos = categoryRequestMapper.toResponseList(pageCustom.getContent());
         return new CustomPageResponse<>(responseDtos,pageCustom.getPage(),

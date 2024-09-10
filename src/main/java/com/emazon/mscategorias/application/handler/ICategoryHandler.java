@@ -11,7 +11,7 @@ public interface ICategoryHandler {
 
 
 
-    CustomPageResponse<CategoryResponseDto> getParameterizedCategories(int page, int size, String orden);
+    CustomPageResponse<CategoryResponseDto> getParameterizedCategories(Integer page, Integer size, String orden);
 
 
 }

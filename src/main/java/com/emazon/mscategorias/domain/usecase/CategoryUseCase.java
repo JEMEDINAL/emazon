@@ -9,10 +9,11 @@ import com.emazon.mscategorias.domain.spi_output.ICategoryPersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.NameCategoryNotBlankException;
 import com.emazon.mscategorias.infrastructure.exception.UnauthorizedUserException;
 import com.emazon.mscategorias.infrastructure.exception.ValidCategoryDescription;
+import com.emazon.mscategorias.infrastructure.exception.ValidPageParameter;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
+
 
 @Service
 public class CategoryUseCase implements ICategoryServicePort {
@@ -49,7 +50,10 @@ public class CategoryUseCase implements ICategoryServicePort {
 
 
     @Override
-    public CustomPageResponse<Category> getParameterizedCategories(int page, int size, String orden) {
+    public CustomPageResponse<Category> getParameterizedCategories(Integer page, Integer size, String orden) {
+        if (page == null|| page < 0 || size == null || size <1 || orden == null){
+            throw new ValidPageParameter();
+        }
         return categoryPersistancePort.getParameterizedCategories(page, size, orden);
     }
 
