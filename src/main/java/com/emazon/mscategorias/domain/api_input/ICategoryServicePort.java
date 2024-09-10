@@ -1,15 +1,16 @@
 package com.emazon.mscategorias.domain.api_input;
 
 import com.emazon.mscategorias.domain.model.Category;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 
-import java.util.List;
+
 
 public interface ICategoryServicePort {
     void saveCategory(Category category);
 
-    List<Category> getAllCategories();
 
-    List<Category> getParameterizedCategories(int page, int size,String orden);
+
+    CustomPageResponse<Category> getParameterizedCategories(Integer page, Integer size, String orden);
 
 
 }

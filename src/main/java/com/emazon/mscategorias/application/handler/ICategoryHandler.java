@@ -2,15 +2,16 @@ package com.emazon.mscategorias.application.handler;
 
 import com.emazon.mscategorias.application.dto.CategoryRequestDto;
 import com.emazon.mscategorias.application.dto.CategoryResponseDto;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 
-import java.util.List;
+
 
 public interface ICategoryHandler {
     void saveCategoryInCategoriesDb(CategoryRequestDto categoryRequestDto);
 
-    List<CategoryResponseDto> getAllCategories();
 
-    List<CategoryResponseDto> getParameterizedCategories(int page, int size,String orden);
+
+    CustomPageResponse<CategoryResponseDto> getParameterizedCategories(Integer page, Integer size, String orden);
 
 
 }
