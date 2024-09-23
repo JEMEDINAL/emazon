@@ -50,4 +50,28 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE,ExeptionResponse.NO_DATA_FOUND_EXCEPTION.getMessage()));
     }
+
+    @ExceptionHandler(ValidQuantity.class)
+    public ResponseEntity<Map<String,String>> validQuantity(ValidQuantity validQuantity){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.VALID_QUANTITY.getMessage()));
+    }
+
+    @ExceptionHandler(ValidPrice.class)
+    public ResponseEntity<Map<String,String>> validPrice(ValidPrice validPrice){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.VALID_PRICE.getMessage()));
+    }
+
+    @ExceptionHandler(ValidIdsCategories.class)
+    public ResponseEntity<Map<String,String>> validIdsCategories(ValidIdsCategories validIdsCategories){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.VALID_CATEGORIES.getMessage()));
+    }
+
+    @ExceptionHandler(NoExistCategories.class)
+    public ResponseEntity<Map<String,String>> noExistCategories(NoExistCategories noExistCategories){
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE,ExeptionResponse.NO_EXIST_CATEGORY.getMessage()));
+    }
 }

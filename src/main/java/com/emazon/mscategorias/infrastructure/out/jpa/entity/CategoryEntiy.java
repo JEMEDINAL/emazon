@@ -1,10 +1,11 @@
 package com.emazon.mscategorias.infrastructure.out.jpa.entity;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Category")
@@ -23,4 +24,7 @@ public class CategoryEntiy {
 
 
     private String description;
+
+    @ManyToMany(mappedBy = "categories")
+    private Set<ArticleEntity> articles = new HashSet<>();
 }

@@ -1,19 +1,24 @@
 package com.emazon.mscategorias.domain.model;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
-public class Article {
+public class Article<T,M> {
     private Long id;
+    private String name;
+    private String description;
     private Integer quantity;
     private BigDecimal price;
-    private Long idCategory;
-    private Long idBrand;
+    private Set<T> categories;
+    private M idBrand;
 
-    public Article(Long id, Integer quantity, BigDecimal price, Long idCategory, Long idBrand) {
+    public Article(Long id, String name, String description, Integer quantity, BigDecimal price, Set<T> categories, M idBrand) {
         this.id = id;
+        this.name = name;
+        this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.idCategory = idCategory;
+        this.categories = categories;
         this.idBrand = idBrand;
     }
 
@@ -23,6 +28,22 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getQuantity() {
@@ -41,19 +62,19 @@ public class Article {
         this.price = price;
     }
 
-    public Long getIdCategory() {
-        return idCategory;
+    public Set<T> getCategories() {
+        return categories;
     }
 
-    public void setIdCategory(Long idCategory) {
-        this.idCategory = idCategory;
+    public void setCategories(Set<T> categories) {
+        this.categories = categories;
     }
 
-    public Long getIdBrand() {
+    public M getIdBrand() {
         return idBrand;
     }
 
-    public void setIdBrand(Long idBrand) {
+    public void setIdBrand(M idBrand) {
         this.idBrand = idBrand;
     }
 }

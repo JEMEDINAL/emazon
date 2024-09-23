@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Brands")
 @NoArgsConstructor
@@ -18,4 +20,7 @@ public class BrandEntity {
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "brand")
+    private Set<ArticleEntity> article;
 }
