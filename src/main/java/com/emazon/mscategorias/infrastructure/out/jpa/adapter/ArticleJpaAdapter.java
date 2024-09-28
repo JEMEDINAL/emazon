@@ -3,6 +3,7 @@ package com.emazon.mscategorias.infrastructure.out.jpa.adapter;
 import com.emazon.mscategorias.domain.model.Article;
 import com.emazon.mscategorias.domain.spi_output.IArticlePersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.NoExistCategories;
+import com.emazon.mscategorias.infrastructure.out.jpa.entity.ArticleEntity;
 import com.emazon.mscategorias.infrastructure.out.jpa.entity.BrandEntity;
 import com.emazon.mscategorias.infrastructure.out.jpa.entity.CategoryEntiy;
 import com.emazon.mscategorias.infrastructure.out.jpa.mapper.ArticleEntityMapper;
@@ -23,7 +24,7 @@ public class ArticleJpaAdapter implements IArticlePersistancePort {
 
     @Override
     public void saveArticle(Article<Long,Long> article) {
-        BrandEntity brand = iBrandRepository.findById(article.getIdBrand())
+        BrandEntity brand = iBrandRepository.findById(article.getBrand())
                 .orElseThrow(NoExistCategories::new);
 
         Set<CategoryEntiy> categoryEntities = article.getCategories().stream()
@@ -35,11 +36,11 @@ public class ArticleJpaAdapter implements IArticlePersistancePort {
         if (categoryEntities.size() != article.getCategories().size()) {
             throw new NoExistCategories();
         }
-        Article<CategoryEntiy, BrandEntity> categoryEntiyArticle = articleEntityMapper.toArticle(article);
-        categoryEntiyArticle.setCategories(categoryEntities);
-        categoryEntiyArticle.setIdBrand(brand);
+        ArticleEntity articleEntity = articleEntityMapper.articleToArticleEntity(article);
+        articleEntity.setCategories(categoryEntities);
+        articleEntity.setBrand(brand);
 
-        iArticleRepository.save(articleEntityMapper.articleToArticleEntity(categoryEntiyArticle));
+        iArticleRepository.save(articleEntity);
 
     }
 }

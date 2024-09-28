@@ -10,16 +10,16 @@ public class Article<T,M> {
     private Integer quantity;
     private BigDecimal price;
     private Set<T> categories;
-    private M idBrand;
+    private M brand;
 
-    public Article(Long id, String name, String description, Integer quantity, BigDecimal price, Set<T> categories, M idBrand) {
+    public Article(Long id, String name, String description, Integer quantity, BigDecimal price, Set<T> categories, M brand) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.categories = categories;
-        this.idBrand = idBrand;
+        this.brand = brand;
     }
 
     public Long getId() {
@@ -70,11 +70,11 @@ public class Article<T,M> {
         this.categories = categories;
     }
 
-    public M getIdBrand() {
-        return idBrand;
+    public M getBrand() {
+        return brand;
     }
 
-    public void setIdBrand(M idBrand) {
-        this.idBrand = idBrand;
+    public void setBrand(M brand) {
+        this.brand = brand;
     }
 }

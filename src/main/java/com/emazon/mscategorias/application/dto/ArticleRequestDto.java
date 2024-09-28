@@ -13,12 +13,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticleRequestDto {
-    private Long id;
     private String name;
     private String description;
     private Integer quantity;
     private BigDecimal price;
     private Set<Long> categories;
-    private Long idBrand;
+    private Long brand;
 }
 

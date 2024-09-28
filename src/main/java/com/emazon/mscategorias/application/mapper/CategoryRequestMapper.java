@@ -4,11 +4,15 @@ import com.emazon.mscategorias.application.dto.CategoryRequestDto;
 import com.emazon.mscategorias.application.dto.CategoryResponseDto;
 import com.emazon.mscategorias.domain.model.Category;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        unmappedSourcePolicy = ReportingPolicy.IGNORE
+)
 public interface CategoryRequestMapper {
 
     Category toCategory(CategoryRequestDto categoryRequestDto);
