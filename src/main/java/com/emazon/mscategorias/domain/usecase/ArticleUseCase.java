@@ -2,6 +2,9 @@ package com.emazon.mscategorias.domain.usecase;
 
 import com.emazon.mscategorias.domain.api_input.IArticleServicePort;
 import com.emazon.mscategorias.domain.model.Article;
+import com.emazon.mscategorias.domain.model.Brand;
+import com.emazon.mscategorias.domain.model.Category;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.IArticlePersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.*;
 
@@ -38,5 +41,10 @@ public class ArticleUseCase implements IArticleServicePort {
 
         iArticlePersistancePort.saveArticle(article);
 
+    }
+
+    @Override
+    public CustomPageResponse<Article<Category, Brand>> getParameterizedArticles(Integer page, Integer size, String orden) {
+        return iArticlePersistancePort.getParameterizedArticles(page, size, orden);
     }
 }

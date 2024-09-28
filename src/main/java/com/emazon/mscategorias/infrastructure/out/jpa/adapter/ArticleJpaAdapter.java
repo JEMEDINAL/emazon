@@ -1,6 +1,9 @@
 package com.emazon.mscategorias.infrastructure.out.jpa.adapter;
 
 import com.emazon.mscategorias.domain.model.Article;
+import com.emazon.mscategorias.domain.model.Brand;
+import com.emazon.mscategorias.domain.model.Category;
+import com.emazon.mscategorias.domain.model.CustomPageResponse;
 import com.emazon.mscategorias.domain.spi_output.IArticlePersistancePort;
 import com.emazon.mscategorias.infrastructure.exception.NoExistCategories;
 import com.emazon.mscategorias.infrastructure.out.jpa.entity.ArticleEntity;
@@ -11,6 +14,12 @@ import com.emazon.mscategorias.infrastructure.out.jpa.repository.IArticleReposit
 import com.emazon.mscategorias.infrastructure.out.jpa.repository.IBrandRepository;
 import com.emazon.mscategorias.infrastructure.out.jpa.repository.ICategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,5 +51,22 @@ public class ArticleJpaAdapter implements IArticlePersistancePort {
 
         iArticleRepository.save(articleEntity);
 
+    }
+
+    @Override
+    public CustomPageResponse<Article<Category, Brand>> getParameterizedArticles(Integer page, Integer size, String orden) {
+        String[] parts = orden.split(",");
+
+        String property = parts[0];
+        String direction = parts[1];
+
+        Sort sort = Sort.by(Sort.Direction.fromString(direction),property);
+
+
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<ArticleEntity> articleEntityPage = iArticleRepository.findAll(pageable);
+        List<Article<Category,Brand>> articleEntities = articleEntityMapper.toListArticle(articleEntityPage.getContent());
+        return new CustomPageResponse<>(articleEntities, articleEntityPage.getNumber(), articleEntityPage.getSize(),
+                articleEntityPage.getTotalElements(), articleEntityPage.getTotalPages(), orden);
     }
 }
